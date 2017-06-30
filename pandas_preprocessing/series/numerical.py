@@ -67,9 +67,9 @@ class NumericalSeriesPreprocessor(BaseSeriesPreprocessor):
 
     @staticmethod
     def _normalize(series):
-        r = series.max() - series.min()
-        assert(r > 0)
-        return (series - series.min()) / r
+        smin = series.min()
+        smax = series.max()
+        return (series - smin) / (smax - smin)
 
     @staticmethod
     def _isnan(series):
