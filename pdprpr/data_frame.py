@@ -9,7 +9,7 @@ from .series.stepping import SteppingSeriesPreprocessor
 from .series.regex import RegexSeriesPreprocessor
 
 
-Column = namedtuple('Column', ['name', 'preprocessor'])
+Column = namedtuple('Column', ['name', 'processor'])
 
 _SERIES_PROCESSORS = {
     p.kind: p for p in (
@@ -23,22 +23,22 @@ _SERIES_PROCESSORS = {
 
 
 class DataFramePreprocessor:
-    def __init__(self, configs):
+    def __init__(self, settings):
         kinds = _SERIES_PROCESSORS.keys()
 
         columns = []
-        for config in configs:
-            name, kind = config['name'], config['kind']
+        for setting in settings:
+            name, kind = setting['name'], setting['kind']
 
             if kind not in kinds:
                 mes = "Unknown kind: '{}'".format(kind)
                 raise ValueError(mes)
 
             opts = {
-                k: v for k, v in config.items() if k not in ('name', 'kind')}
+                k: v for k, v in setting.items() if k not in ('name', 'kind')}
 
             pp = _SERIES_PROCESSORS[kind](**opts)
-            columns.append(Column(name=name, preprocessor=pp))
+            columns.append(Column(name=name, processor=pp))
 
         self._columns = columns
 
@@ -46,7 +46,7 @@ class DataFramePreprocessor:
         result = DataFrame(index=df.index)
         for column in self._columns:
             name = column.name
-            processed = column.preprocessor.process(df[name])
+            processed = column.processor.process(df[name])
             renamed = processed.rename(columns=lambda c: f'{name}/{c}')
             result = result.join(renamed)
 
