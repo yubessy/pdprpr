@@ -7,6 +7,8 @@ Pdprpr preprocesses pandas objects (DataFrame, Series) for machine learning inpu
 Assume you have this DataFrame to be preprocessed:
 
 ```python
+from pandas import DataFrame
+
 df = DataFrame({
     'num': [1, 3, float('nan')],  # numerical feature to be scaled in [0, 1]
     'cat': ['P', 'Q', 'R'],       # categorical feature to be transformted to dummy var
@@ -21,6 +23,7 @@ df = DataFrame({
 You can define preprocessing settings in JSON-like format:
 
 ```yaml
+# preprocessing.yml
 - name: num
   kind: numerical
 
@@ -36,7 +39,7 @@ Then `DataFramePreprocessor` instance can be created with them:
 ```python
 import yaml
 
-with open('<filename>') as f:
+with open('preprocessing.yml') as f:
     settings = yaml.load(f)
 
 from pdprpr import DataFramePreprocessor
