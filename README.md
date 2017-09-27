@@ -1,2 +1,3 @@
-# pandas-preprocessing
-Preprocess pandas DataFrame / Series
+# pdprpr
+
+Preprocess pandas DataFrame / Series for Machine Learning
