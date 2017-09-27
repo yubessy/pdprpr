@@ -2,11 +2,13 @@ from collections import namedtuple
 
 from pandas import DataFrame
 
-from .series.numerical import NumericalSeriesPreprocessor
-from .series.categorical import CategoricalSeriesPreprocessor
-from .series.binary import BinarySeriesPreprocessor
-from .series.stepping import SteppingSeriesPreprocessor
-from .series.regex import RegexSeriesPreprocessor
+from .series import (
+    NumericalSeriesPreprocessor,
+    CategoricalSeriesPreprocessor,
+    BinarySeriesPreprocessor,
+    SteppingSeriesPreprocessor,
+    RegexSeriesPreprocessor,
+)
 
 
 Column = namedtuple('Column', ['name', 'processor'])

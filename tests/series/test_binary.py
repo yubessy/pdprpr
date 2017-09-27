@@ -3,7 +3,7 @@ from unittest import TestCase
 from pandas import Series, DataFrame
 from pandas.util.testing import assert_frame_equal
 
-from pdprpr import BinarySeriesPreprocessor
+from pdprpr.series import BinarySeriesPreprocessor
 
 from ..helper import array_uint8
 
