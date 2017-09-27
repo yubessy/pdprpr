@@ -8,7 +8,7 @@ from pdprpr import BinarySeriesPreprocessor
 from ..helper import array_uint8
 
 
-class BinarySeriesPreprocessorTest(TestCase):
+class TestBinarySeriesPreprocessor(TestCase):
     def test_process(self):
         pp = BinarySeriesPreprocessor()
         target = Series([0, 1, float('nan')])

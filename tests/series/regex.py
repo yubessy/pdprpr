@@ -8,7 +8,7 @@ from pdprpr import RegexSeriesPreprocessor
 from ..helper import array_uint8
 
 
-class RegexSeriesPreprocessorTest(TestCase):
+class TestRegexSeriesPreprocessor(TestCase):
     def test_process(self):
         pp = RegexSeriesPreprocessor(groups=[
             {'name': 'a1', 'regex': r'^a$'},

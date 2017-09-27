@@ -6,7 +6,7 @@ from pandas.util.testing import assert_frame_equal
 from pdprpr.series.base import BaseSeriesPreprocessor
 
 
-class NumericalSeriesPreprocessorTest(TestCase):
+class TestNumericalSeriesPreprocessor(TestCase):
     def test_process(self):
         pp = BaseSeriesPreprocessor()
         target = Series(['a', 'b', 'c'])

@@ -8,7 +8,7 @@ from pdprpr import CategoricalSeriesPreprocessor
 from ..helper import array_uint8
 
 
-class CategoricalSeriesPreprocessorTest(TestCase):
+class TestCategoricalSeriesPreprocessor(TestCase):
     def test_process(self):
         pp = CategoricalSeriesPreprocessor()
         target = Series(['P', 'Q', 'R', float('nan')])

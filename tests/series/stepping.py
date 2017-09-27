@@ -8,7 +8,7 @@ from pdprpr import SteppingSeriesPreprocessor
 from ..helper import array_uint8
 
 
-class SteppingSeriesPreprocessorTest(TestCase):
+class TestSteppingSeriesPreprocessor(TestCase):
     def test_process(self):
         pp = SteppingSeriesPreprocessor(steps=[2.0, 4.0])
         target = Series([1.0, 2.0, 3.0, 4.0, 5.0, float('nan')])

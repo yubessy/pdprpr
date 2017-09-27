@@ -8,7 +8,7 @@ from pdprpr import NumericalSeriesPreprocessor
 from ..helper import array_float, array_uint8
 
 
-class NumericalSeriesPreprocessorTest(TestCase):
+class TestNumericalSeriesPreprocessor(TestCase):
     def test_process(self):
         pp = NumericalSeriesPreprocessor()
         target = Series([1, 3, float('nan')])

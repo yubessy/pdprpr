@@ -8,7 +8,7 @@ from pdprpr import DataFramePreprocessor
 from .helper import array_float, array_uint8
 
 
-class DataFramePreprocessorTest(TestCase):
+class TestDataFramePreprocessor(TestCase):
     def test_process(self):
         pp = DataFramePreprocessor([
             {'name': 'n', 'kind': 'numerical'},
