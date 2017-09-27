@@ -4,7 +4,7 @@ import numpy
 from attr import attrs, attrib
 from attr.validators import instance_of, optional
 
-from .base import BaseSeriesPreprocessor
+from ._base import BaseSeriesPreprocessor
 
 
 @attrs

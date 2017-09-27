@@ -2,7 +2,7 @@ import numpy
 from attr import attrs, attrib
 from pandas import get_dummies
 
-from .base import BaseSeriesPreprocessor
+from ._base import BaseSeriesPreprocessor
 
 
 @attrs

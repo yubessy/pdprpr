@@ -3,7 +3,7 @@ from unittest import TestCase
 from pandas import Series, DataFrame
 from pandas.util.testing import assert_frame_equal
 
-from pdprpr.series.base import BaseSeriesPreprocessor
+from pdprpr.series._base import BaseSeriesPreprocessor
 
 
 class TestNumericalSeriesPreprocessor(TestCase):
