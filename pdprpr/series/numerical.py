@@ -9,6 +9,7 @@ from .base import BaseSeriesPreprocessor
 
 @attrs
 class NumericalSeriesPreprocessor(BaseSeriesPreprocessor):
+    kind = 'numerical'
     dtype = Real
 
     fillna_method = attrib(default=None)

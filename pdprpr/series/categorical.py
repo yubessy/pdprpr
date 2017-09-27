@@ -7,6 +7,7 @@ from .base import BaseSeriesPreprocessor
 
 @attrs
 class CategoricalSeriesPreprocessor(BaseSeriesPreprocessor):
+    kind = 'categorical'
     default = attrib(default=None)
 
     @default.validator

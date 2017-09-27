@@ -15,7 +15,7 @@ class TestDataFramePreprocessor(TestCase):
             {'name': 'c', 'kind': 'categorical'},
             {'name': 'b', 'kind': 'binary'},
             {'name': 's', 'kind': 'stepping', 'steps': [2, 4]},
-            {'name': 'r', 'kind': 'regexp', 'groups': [
+            {'name': 'r', 'kind': 'regex', 'groups': [
                 {'name': 'a', 'regex': r'a+'},
             ]},
         ])

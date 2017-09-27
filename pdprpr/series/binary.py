@@ -5,6 +5,7 @@ from .categorical import CategoricalSeriesPreprocessor
 
 @attrs
 class BinarySeriesPreprocessor(CategoricalSeriesPreprocessor):
+    kind = 'binary'
     dtype = bool
 
     @staticmethod
