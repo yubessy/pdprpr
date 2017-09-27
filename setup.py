@@ -2,10 +2,10 @@ from distutils.core import setup
 
 setup(
     name='pdprpr',
-    version='0.1.0',
+    version='0.1.1',
     author='Shotaro Tanaka',
     author_email='yubessy0@gmail.com',
-    packages=['pdprpr'],
+    packages=['pdprpr', 'pdprpr.series'],
     url='https://github.com/yubessy/pdprpr',
     license='LICENSE',
     description='Pdprpr preprocesses pandas objects (DataFrame, Series) for machine learning input.',
