@@ -14,7 +14,7 @@ from .series import (
 Column = namedtuple('Column', ['name', 'processor'])
 
 _SERIES_PROCESSORS = {
-    p.kind: p for p in (
+    processor.kind: processor for processor in (
         NumericalSeriesPreprocessor,
         CategoricalSeriesPreprocessor,
         BinarySeriesPreprocessor,
@@ -31,16 +31,14 @@ class DataFramePreprocessor:
         columns = []
         for setting in settings:
             name, kind = setting['name'], setting['kind']
+            options = setting.get('options', {})
 
             if kind not in kinds:
                 mes = "Unknown kind: '{}'".format(kind)
                 raise ValueError(mes)
 
-            opts = {
-                k: v for k, v in setting.items() if k not in ('name', 'kind')}
-
-            pp = _SERIES_PROCESSORS[kind](**opts)
-            columns.append(Column(name=name, processor=pp))
+            processor = _SERIES_PROCESSORS[kind](**options)
+            columns.append(Column(name=name, processor=processor))
 
         self._columns = columns
 

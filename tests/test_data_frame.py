@@ -14,10 +14,12 @@ class TestDataFramePreprocessor(TestCase):
             {'name': 'n', 'kind': 'numerical'},
             {'name': 'c', 'kind': 'categorical'},
             {'name': 'b', 'kind': 'binary'},
-            {'name': 's', 'kind': 'stepping', 'steps': [2, 4]},
-            {'name': 'r', 'kind': 'regex', 'groups': [
-                {'name': 'a', 'regex': r'a+'},
-            ]},
+            {'name': 's', 'kind': 'stepping', 'options': {
+                'steps': [2, 4],
+            }},
+            {'name': 'r', 'kind': 'regex', 'options': {
+                'groups': [{'name': 'a', 'regex': r'a+'}],
+            }},
         ])
         target = DataFrame({
             'n': [1, 3, float('nan')],
