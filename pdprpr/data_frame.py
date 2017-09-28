@@ -4,6 +4,7 @@ from pandas import DataFrame
 
 from .series import (
     NumericalSeriesPreprocessor,
+    NullableSeriesPreprocessor,
     CategoricalSeriesPreprocessor,
     BinarySeriesPreprocessor,
     SteppingSeriesPreprocessor,
@@ -16,6 +17,7 @@ Column = namedtuple('Column', ['name', 'processor'])
 _SERIES_PROCESSORS = {
     processor.kind: processor for processor in (
         NumericalSeriesPreprocessor,
+        NullableSeriesPreprocessor,
         CategoricalSeriesPreprocessor,
         BinarySeriesPreprocessor,
         SteppingSeriesPreprocessor,
