@@ -1,3 +1,5 @@
+import math
+
 import numpy
 from attr import attrs, attrib
 
@@ -16,9 +18,9 @@ class NullableSeriesPreprocessor(BaseSeriesPreprocessor):
     def _isnull(self, series):
         if self.nullval == 'AUTO':
             return series.isnull()
-        elif numpy.isnan(self.nullval):
-            return series.map(numpy.isnan)
         elif self.nullval is None:
             return series.map(lambda x: x is None)
+        elif isinstance(self.nullval, float) and math.isnan(self.nullval):
+            return series.map(numpy.isnan)
         else:
             return series == self.nullval
