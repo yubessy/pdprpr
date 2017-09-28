@@ -14,9 +14,9 @@ class BaseSeriesPreprocessor:
             raise ValueError(mes)
 
     def process(self, series):
-        df = series.to_frame('value')
+        df = series.to_frame('VALUE')
         if self.fillna is not None:
-            df.value = self._fillna(df.value, self.fillna)
+            df['VALUE'] = self._fillna(df['VALUE'], self.fillna)
         return df
 
     @staticmethod

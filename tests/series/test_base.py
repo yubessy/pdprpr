@@ -11,12 +11,12 @@ class TestNumericalSeriesPreprocessor(TestCase):
         pp = BaseSeriesPreprocessor()
         target = Series(['a', 'b', 'c'])
         result = pp.process(target)
-        expected = DataFrame({'value': ['a', 'b', 'c']})
+        expected = DataFrame({'VALUE': ['a', 'b', 'c']})
         assert_frame_equal(result, expected)
 
     def test_process_fillna(self):
         pp = BaseSeriesPreprocessor(fillna='na')
         target = Series(['a', 'b', None])
         result = pp.process(target)
-        expected = DataFrame({'value': ['a', 'b', 'na']})
+        expected = DataFrame({'VALUE': ['a', 'b', 'na']})
         assert_frame_equal(result, expected)

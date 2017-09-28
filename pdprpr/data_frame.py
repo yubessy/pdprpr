@@ -49,7 +49,7 @@ class DataFramePreprocessor:
         for column in self._columns:
             name = column.name
             processed = column.processor.process(df[name])
-            renamed = processed.rename(columns=lambda c: f'{name}/{c}')
+            renamed = processed.rename(columns=lambda c: f'{name}__{c}')
             result = result.join(renamed)
 
         return result

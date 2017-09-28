@@ -18,17 +18,17 @@ class CategoricalSeriesPreprocessor(BaseSeriesPreprocessor):
 
     def process(self, series):
         df = super().process(series)
-        df.value = df.value.map(self.get_category, na_action='ignore')
+        df['VALUE'] = df['VALUE'].map(self.get_category, na_action='ignore')
         if self.default is not None:
-            df.value = self._default_to_nan(df.value, self.default)
-        dummies = get_dummies(df.value).astype(numpy.uint8)
+            df['VALUE'] = self._default_to_nan(df['VALUE'], self.default)
+        dummies = get_dummies(df['VALUE']).astype(numpy.uint8)
         return dummies.rename(columns=self.get_column)
 
     @staticmethod
     def _default_to_nan(series, default):
         def replacer(x):
             if isinstance(x, float) and numpy.isnan(x):
-                return 'nan'
+                return 'NAN'
             elif x == default:
                 return float('nan')
             else:

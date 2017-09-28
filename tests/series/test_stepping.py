@@ -14,8 +14,8 @@ class TestSteppingSeriesPreprocessor(TestCase):
         target = Series([1.0, 2.0, 3.0, 4.0, 5.0, float('nan')])
         result = pp.process(target)
         expected = DataFrame({
-            '~2.0-': array_uint8([1, 0, 0, 0, 0, 0]),
-            '2.0~4.0-': array_uint8([0, 1, 1, 0, 0, 0]),
-            '4.0~': array_uint8([0, 0, 0, 1, 1, 0]),
+            '0': array_uint8([1, 0, 0, 0, 0, 0]),
+            '1': array_uint8([0, 1, 1, 0, 0, 0]),
+            '2': array_uint8([0, 0, 0, 1, 1, 0]),
         })
         assert_frame_equal(result, expected)

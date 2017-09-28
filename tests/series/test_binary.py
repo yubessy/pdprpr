@@ -14,9 +14,9 @@ class TestBinarySeriesPreprocessor(TestCase):
         target = Series([0, 1, float('nan')])
         result = pp.process(target)
         expected = DataFrame({
-            'True': array_uint8([0, 1, 0]),
-            'False': array_uint8([1, 0, 0]),
-        }, columns=['False', 'True'])
+            'TRUE': array_uint8([0, 1, 0]),
+            'FALSE': array_uint8([1, 0, 0]),
+        }, columns=['FALSE', 'TRUE'])
         assert_frame_equal(result, expected)
 
     def test_process_fillna(self):
@@ -24,9 +24,9 @@ class TestBinarySeriesPreprocessor(TestCase):
         target = Series([0, 1, float('nan')])
         result = pp.process(target)
         expected = DataFrame({
-            'True': array_uint8([0, 1, 0]),
-            'False': array_uint8([1, 0, 1]),
-        }, columns=['False', 'True'])
+            'TRUE': array_uint8([0, 1, 0]),
+            'FALSE': array_uint8([1, 0, 1]),
+        }, columns=['FALSE', 'TRUE'])
         assert_frame_equal(result, expected)
 
     def test_process_default(self):
@@ -34,7 +34,7 @@ class TestBinarySeriesPreprocessor(TestCase):
         target = Series([0, 1, float('nan')])
         result = pp.process(target)
         expected = DataFrame({
-            'False': array_uint8([1, 0, 0]),
-            'nan': array_uint8([0, 0, 1]),
-        }, columns=['False', 'nan'])
+            'FALSE': array_uint8([1, 0, 0]),
+            'NAN': array_uint8([0, 0, 1]),
+        }, columns=['FALSE', 'NAN'])
         assert_frame_equal(result, expected)

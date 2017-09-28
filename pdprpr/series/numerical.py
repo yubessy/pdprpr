@@ -33,15 +33,15 @@ class NumericalSeriesPreprocessor(BaseSeriesPreprocessor):
         series = series.astype(float)
         df = super().process(series)
         if self.fillna_method is not None:
-            df.value = self._fillna_method(df.value, self.fillna_method)
+            df['VALUE'] = self._fillna_method(df['VALUE'], self.fillna_method)
         if self.minv is not None:
-            df.value = self._minv(df.value, self.minv)
+            df['VALUE'] = self._minv(df['VALUE'], self.minv)
         if self.maxv is not None:
-            df.value = self._maxv(df.value, self.maxv)
+            df['VALUE'] = self._maxv(df['VALUE'], self.maxv)
         if self.normalize:
-            df.value = self._normalize(df.value)
+            df['VALUE'] = self._normalize(df['VALUE'])
         if self.append_isnan:
-            df['nan'] = self._isnan(series)
+            df['NAN'] = self._isnan(series)
         return df
 
     @staticmethod

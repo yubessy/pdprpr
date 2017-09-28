@@ -28,19 +28,19 @@ class TestDataFramePreprocessor(TestCase):
         })
         result = pp.process(target)
         expected = DataFrame({
-            'n/value': array_float([0.0, 1.0, float('nan')]),
-            'c/P': array_uint8([1, 0, 0]),
-            'c/Q': array_uint8([0, 1, 0]),
-            'c/R': array_uint8([0, 0, 1]),
-            'b/True': array_uint8([0, 0, 1]),
-            'b/False': array_uint8([1, 1, 0]),
-            's/~2-': array_uint8([1, 0, 0]),
-            's/2~4-': array_uint8([0, 1, 0]),
-            's/4~': array_uint8([0, 0, 1]),
-            'r/a': array_uint8([1, 1, 0]),
+            'n__VALUE': array_float([0.0, 1.0, float('nan')]),
+            'c__P': array_uint8([1, 0, 0]),
+            'c__Q': array_uint8([0, 1, 0]),
+            'c__R': array_uint8([0, 0, 1]),
+            'b__TRUE': array_uint8([0, 0, 1]),
+            'b__FALSE': array_uint8([1, 1, 0]),
+            's__0': array_uint8([1, 0, 0]),
+            's__1': array_uint8([0, 1, 0]),
+            's__2': array_uint8([0, 0, 1]),
+            'r__a': array_uint8([1, 1, 0]),
         }, columns=[
-            'n/value', 'c/P', 'c/Q', 'c/R', 'b/False', 'b/True',
-            's/2~4-', 's/4~', 's/~2-', 'r/a',
+            'n__VALUE', 'c__P', 'c__Q', 'c__R', 'b__FALSE', 'b__TRUE',
+            's__0', 's__1', 's__2', 'r__a',
         ])
         assert_frame_equal(result, expected)
 
@@ -51,7 +51,7 @@ class TestDataFramePreprocessor(TestCase):
             'x': [..., ..., ...],
         })
         result = pp.process(target)
-        expected = DataFrame({'n/value': array_float([0, 1, float('nan')])})
+        expected = DataFrame({'n__VALUE': array_float([0, 1, float('nan')])})
         assert_frame_equal(result, expected)
 
     def test_process_fail_when_columns_do_not_exist(self):

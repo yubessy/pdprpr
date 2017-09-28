@@ -38,6 +38,6 @@ class TestCategoricalSeriesPreprocessor(TestCase):
         expected = DataFrame({
             'Q': array_uint8([0, 1, 0, 0]),
             'R': array_uint8([0, 0, 1, 0]),
-            'nan': array_uint8([0, 0, 0, 1]),
-        }, columns=['Q', 'R', 'nan'])
+            'NAN': array_uint8([0, 0, 0, 1]),
+        }, columns=['NAN', 'Q', 'R'])
         assert_frame_equal(result, expected)

@@ -14,4 +14,4 @@ class BinarySeriesPreprocessor(CategoricalSeriesPreprocessor):
 
     @staticmethod
     def get_column(category):
-        return str(category)
+        return str(category).upper()
