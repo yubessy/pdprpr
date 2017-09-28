@@ -5,7 +5,7 @@ from pandas.util.testing import assert_frame_equal
 
 from pdprpr.series import NumericalSeriesPreprocessor
 
-from ..helper import array_float, array_uint8
+from ..helper import array_float
 
 
 class TestNumericalSeriesPreprocessor(TestCase):
@@ -43,15 +43,3 @@ class TestNumericalSeriesPreprocessor(TestCase):
         result = pp.process(target)
         expected = DataFrame({'VALUE': array_float([0.0, 1.0, 0.5])})
         assert_frame_equal(result, expected)
-
-    def test_process_append_isnan(self):
-        pp = NumericalSeriesPreprocessor(append_isnan=True)
-        target = Series([1, 3, float('nan')])
-        result = pp.process(target)
-        expected = DataFrame({
-            'VALUE': array_float([0.0, 1.0, float('nan')]),
-            'NAN': array_uint8([0, 0, 1]),
-        }, columns=['VALUE', 'NAN'])
-        assert_frame_equal(result, expected)
-
-

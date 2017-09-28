@@ -16,7 +16,6 @@ class NumericalSeriesPreprocessor(BaseSeriesPreprocessor):
     minv = attrib(default=None, validator=optional(instance_of(Real)))
     maxv = attrib(default=None, validator=optional(instance_of(Real)))
     normalize = attrib(default=True, validator=instance_of(bool))
-    append_isnan = attrib(default=False, validator=instance_of(bool))
 
     @fillna_method.validator
     def validate_fillna_method(self, attribute, value):
@@ -40,8 +39,6 @@ class NumericalSeriesPreprocessor(BaseSeriesPreprocessor):
             df['VALUE'] = self._maxv(df['VALUE'], self.maxv)
         if self.normalize:
             df['VALUE'] = self._normalize(df['VALUE'])
-        if self.append_isnan:
-            df['NAN'] = self._isnan(series)
         return df
 
     @staticmethod
@@ -71,7 +68,3 @@ class NumericalSeriesPreprocessor(BaseSeriesPreprocessor):
         smin = series.min()
         smax = series.max()
         return (series - smin) / (smax - smin)
-
-    @staticmethod
-    def _isnan(series):
-        return series.astype(float).isnull().astype(numpy.uint8)
