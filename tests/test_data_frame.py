@@ -11,42 +11,45 @@ from .helper import array_float, array_uint8
 class TestDataFramePreprocessor(TestCase):
     def test_process(self):
         pp = DataFramePreprocessor([
-            {'name': 'n', 'kind': 'numerical'},
+            {'name': 'num', 'kind': 'numerical'},
             {'name': 'nul', 'kind': 'nullable'},
-            {'name': 'c', 'kind': 'categorical'},
-            {'name': 'b', 'kind': 'binary'},
-            {'name': 's', 'kind': 'stepping', 'options': {
+            {'name': 'cat', 'kind': 'categorical'},
+            {'name': 'bin', 'kind': 'binary'},
+            {'name': 'stp', 'kind': 'stepping', 'options': {
                 'steps': [2, 4],
             }},
-            {'name': 'r', 'kind': 'regex', 'options': {
+            {'name': 'reg', 'kind': 'regex', 'options': {
                 'groups': [{'name': 'a', 'regex': r'a+'}],
             }},
         ])
         target = DataFrame({
-            'n': [1, 3, float('nan')],
+            'num': [1, 3, float('nan')],
             'nul': [0, None, float('nan')],
-            'c': ['P', 'Q', 'R'],
-            'b': [0, 0, 1],
-            's': [1, 3, 5],
-            'r': ['a', 'aa', 'b'],
+            'cat': ['p', 'q', 'r'],
+            'bin': [0, 0, 1],
+            'stp': [1, 3, 5],
+            'reg': ['a', 'aa', 'b'],
         })
         result = pp.process(target)
         expected = DataFrame({
-            'n__VALUE': array_float([0.0, 1.0, float('nan')]),
-            'nul__NULL': array_uint8([0, 1, 1]),
-            'c__P': array_uint8([1, 0, 0]),
-            'c__Q': array_uint8([0, 1, 0]),
-            'c__R': array_uint8([0, 0, 1]),
-            'b__TRUE': array_uint8([0, 0, 1]),
-            'b__FALSE': array_uint8([1, 1, 0]),
-            's__0': array_uint8([1, 0, 0]),
-            's__1': array_uint8([0, 1, 0]),
-            's__2': array_uint8([0, 0, 1]),
-            'r__a': array_uint8([1, 1, 0]),
+            'num__VALUE': array_float([0.0, 1.0, float('nan')]),
+            'nul__NULL':  array_uint8([0, 1, 1]),
+            'cat__p': array_uint8([1, 0, 0]),
+            'cat__q': array_uint8([0, 1, 0]),
+            'cat__r': array_uint8([0, 0, 1]),
+            'bin__TRUE':  array_uint8([0, 0, 1]),
+            'bin__FALSE': array_uint8([1, 1, 0]),
+            'stp__0': array_uint8([1, 0, 0]),
+            'stp__1': array_uint8([0, 1, 0]),
+            'stp__2': array_uint8([0, 0, 1]),
+            'reg__a': array_uint8([1, 1, 0]),
         }, columns=[
-            'n__VALUE', 'nul__NULL',
-            'c__P', 'c__Q', 'c__R', 'b__FALSE', 'b__TRUE',
-            's__0', 's__1', 's__2', 'r__a',
+            'num__VALUE',
+            'nul__NULL',
+            'cat__p', 'cat__q', 'cat__r',
+            'bin__FALSE', 'bin__TRUE',
+            'stp__0', 'stp__1', 'stp__2',
+            'reg__a',
         ])
         assert_frame_equal(result, expected)
 
