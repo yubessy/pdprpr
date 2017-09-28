@@ -1,8 +1,7 @@
-import math
-
 import numpy
 from attr import attrs, attrib
 
+from ..utils import is_nan
 from ._base import BaseSeriesPreprocessor
 
 
@@ -20,7 +19,7 @@ class NullableSeriesPreprocessor(BaseSeriesPreprocessor):
             return series.isnull()
         elif self.nullval is None:
             return series.map(lambda x: x is None)
-        elif isinstance(self.nullval, float) and math.isnan(self.nullval):
-            return series.map(numpy.isnan)
+        elif is_nan(self.nullval):
+            return series.map(is_nan)
         else:
             return series == self.nullval

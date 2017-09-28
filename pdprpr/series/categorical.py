@@ -1,3 +1,5 @@
+import math
+
 import numpy
 from attr import attrs, attrib
 from pandas import get_dummies
@@ -8,27 +10,31 @@ from ._base import BaseSeriesPreprocessor
 @attrs
 class CategoricalSeriesPreprocessor(BaseSeriesPreprocessor):
     kind = 'categorical'
-    default = attrib(default=None)
+    dtype = object
 
-    @default.validator
-    def validate_default(self, attribute, value):
-        if value is not None and not isinstance(value, self.dtype):
-            mes = "{} is not subclass of {}".format(type(value), self.dtype)
-            raise ValueError(mes)
+    fillna = attrib(default=None)
+    default = attrib(default=float('nan'))
 
     def process(self, series):
-        df = super().process(series)
-        df['VALUE'] = df['VALUE'].map(self.get_category, na_action='ignore')
-        if self.default is not None:
-            df['VALUE'] = self._default_to_nan(df['VALUE'], self.default)
-        dummies = get_dummies(df['VALUE']).astype(numpy.uint8)
+        series = series.map(self.get_category, na_action='ignore')
+
+        if self.fillna is not None:
+            series = series.fillna(self.fillna)
+
+        if not (isinstance(self.default, float) and math.isnan(self.default)):
+            series = self._default_to_nan(series)
+
+        dummies = get_dummies(series).astype(numpy.uint8)
         return dummies.rename(columns=self.get_column)
 
-    @staticmethod
-    def _default_to_nan(series, default):
+    def _default_to_nan(self, series):
+        default = self.default
+
         def replacer(x):
             if isinstance(x, float) and numpy.isnan(x):
                 return 'NAN'
+            elif default in (None, True, False) and x is default:
+                return float('nan')
             elif x == default:
                 return float('nan')
             else:
@@ -43,5 +49,3 @@ class CategoricalSeriesPreprocessor(BaseSeriesPreprocessor):
     @staticmethod
     def get_column(category):
         return str(category)
-
-

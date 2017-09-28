@@ -1,6 +1,5 @@
 from numbers import Real
 
-import numpy
 from attr import attrs, attrib
 from attr.validators import instance_of, optional
 
@@ -12,6 +11,7 @@ class NumericalSeriesPreprocessor(BaseSeriesPreprocessor):
     kind = 'numerical'
     dtype = Real
 
+    fillna = attrib(default=None, validator=optional(instance_of(Real)))
     fillna_method = attrib(default=None)
     minv = attrib(default=None, validator=optional(instance_of(Real)))
     maxv = attrib(default=None, validator=optional(instance_of(Real)))
@@ -30,7 +30,9 @@ class NumericalSeriesPreprocessor(BaseSeriesPreprocessor):
 
     def process(self, series):
         series = series.astype(float)
-        df = super().process(series)
+        df = series.to_frame('VALUE')
+        if self.fillna is not None:
+            df['VALUE'] = df['VALUE'].fillna(self.fillna)
         if self.fillna_method is not None:
             df['VALUE'] = self._fillna_method(df['VALUE'], self.fillna_method)
         if self.minv is not None:
