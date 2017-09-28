@@ -13,8 +13,8 @@ class TestDataFramePreprocessor(TestCase):
         pp = DataFramePreprocessor([
             {'name': 'num', 'kind': 'numerical'},
             {'name': 'nul', 'kind': 'nullable'},
-            {'name': 'cat', 'kind': 'categorical'},
             {'name': 'bin', 'kind': 'binary'},
+            {'name': 'cat', 'kind': 'categorical'},
             {'name': 'stp', 'kind': 'stepping', 'options': {
                 'steps': [2, 4],
             }},
@@ -25,8 +25,8 @@ class TestDataFramePreprocessor(TestCase):
         target = DataFrame({
             'num': [1, 3, float('nan')],
             'nul': [0, None, float('nan')],
+            'bin': [0, 2, float('nan')],
             'cat': ['p', 'q', 'r'],
-            'bin': [0, 0, 1],
             'stp': [1, 3, 5],
             'reg': ['a', 'aa', 'b'],
         })
@@ -34,11 +34,10 @@ class TestDataFramePreprocessor(TestCase):
         expected = DataFrame({
             'num__VALUE': array_float([0.0, 1.0, float('nan')]),
             'nul__NULL':  array_uint8([0, 1, 1]),
+            'bin__TRUE':  array_uint8([0, 1, 1]),
             'cat__p': array_uint8([1, 0, 0]),
             'cat__q': array_uint8([0, 1, 0]),
             'cat__r': array_uint8([0, 0, 1]),
-            'bin__TRUE':  array_uint8([0, 0, 1]),
-            'bin__FALSE': array_uint8([1, 1, 0]),
             'stp__0': array_uint8([1, 0, 0]),
             'stp__1': array_uint8([0, 1, 0]),
             'stp__2': array_uint8([0, 0, 1]),
@@ -46,8 +45,8 @@ class TestDataFramePreprocessor(TestCase):
         }, columns=[
             'num__VALUE',
             'nul__NULL',
+            'bin__TRUE',
             'cat__p', 'cat__q', 'cat__r',
-            'bin__FALSE', 'bin__TRUE',
             'stp__0', 'stp__1', 'stp__2',
             'reg__a',
         ])

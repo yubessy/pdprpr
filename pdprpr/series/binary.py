@@ -1,17 +1,14 @@
+import numpy
 from attr import attrs
 
-from .categorical import CategoricalSeriesPreprocessor
+from ._base import BaseSeriesPreprocessor
 
 
 @attrs
-class BinarySeriesPreprocessor(CategoricalSeriesPreprocessor):
+class BinarySeriesPreprocessor(BaseSeriesPreprocessor):
     kind = 'binary'
     dtype = bool
 
-    @staticmethod
-    def get_category(value):
-        return bool(value)
-
-    @staticmethod
-    def get_column(category):
-        return str(category).upper()
+    def process(self, series):
+        series = series.map(bool)
+        return series.astype(numpy.uint8).to_frame('TRUE')
