@@ -12,7 +12,7 @@ class CategoricalSeriesPreprocessor(BaseSeriesPreprocessor):
     dtype = object
 
     fillna = attrib(default=None)
-    default = attrib(default=float('nan'))
+    default = attrib(default=numpy.nan)
 
     def process(self, series):
         series = series.map(self.get_category, na_action='ignore')
@@ -33,9 +33,9 @@ class CategoricalSeriesPreprocessor(BaseSeriesPreprocessor):
             if is_nan(x):
                 return 'NAN'
             elif default in (None, True, False) and x is default:
-                return float('nan')
+                return numpy.nan
             elif x == default:
-                return float('nan')
+                return numpy.nan
             else:
                 return x
 

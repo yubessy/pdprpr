@@ -1,3 +1,5 @@
+import numpy
+
 import re
 from collections import namedtuple
 
@@ -22,4 +24,4 @@ class RegexSeriesPreprocessor(CategoricalSeriesPreprocessor):
         for name, regex in self._regex_groups:
             if regex.match(value):
                 return name
-        return float('nan')
+        return numpy.nan
