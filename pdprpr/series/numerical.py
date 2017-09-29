@@ -1,7 +1,7 @@
 from numbers import Number
 
 from attr import attrs, attrib
-from attr.validators import instance_of, optional
+from attr.validators import instance_of, optional, in_
 
 from ._base import BaseSeriesPreprocessor
 
@@ -10,34 +10,25 @@ from ._base import BaseSeriesPreprocessor
 class NumericalSeriesPreprocessor(BaseSeriesPreprocessor):
     kind = 'numerical'
 
-    fillna = attrib(default=None, validator=optional(instance_of(Number)))
-    fillna_method = attrib(default=None)
-    minv = attrib(default=None, validator=optional(instance_of(Number)))
-    maxv = attrib(default=None, validator=optional(instance_of(Number)))
+    FILLMETHODS = ('min', 'max', 'mean', 'median', 'mode')
+
+    fillval = attrib(default=None, validator=optional(instance_of(Number)))
+    fillmethod = attrib(default=None, validator=optional(in_(FILLMETHODS)))
+    minval = attrib(default=None, validator=optional(instance_of(Number)))
+    maxval = attrib(default=None, validator=optional(instance_of(Number)))
     normalize = attrib(default=True, validator=instance_of(bool))
-
-    @fillna_method.validator
-    def validate_fillna_method(self, attribute, value):
-        if self.fillna is not None and value is not None:
-            mes = "fillna and fillna_method cannot be used together"
-            raise ValueError(mes)
-
-        methods = ('min', 'max', 'mean', 'median', 'mode')
-        if value is not None and value not in methods:
-            mes = "method must be one of {}".format(', '.join(methods))
-            raise ValueError(mes)
 
     def process(self, series):
         series = series.astype(float)
         df = series.to_frame('VALUE')
-        if self.fillna is not None:
-            df['VALUE'] = df['VALUE'].fillna(self.fillna)
-        if self.fillna_method is not None:
-            df['VALUE'] = self._fillna_method(df['VALUE'], self.fillna_method)
-        if self.minv is not None:
-            df['VALUE'] = self._minv(df['VALUE'], self.minv)
-        if self.maxv is not None:
-            df['VALUE'] = self._maxv(df['VALUE'], self.maxv)
+        if self.fillval is not None:
+            df['VALUE'] = df['VALUE'].fillna(self.fillval)
+        if self.fillmethod is not None:
+            df['VALUE'] = self._fillna_method(df['VALUE'], self.fillmethod)
+        if self.minval is not None:
+            df['VALUE'] = self._minv(df['VALUE'], self.minval)
+        if self.maxval is not None:
+            df['VALUE'] = self._maxv(df['VALUE'], self.maxval)
         if self.normalize:
             df['VALUE'] = self._normalize(df['VALUE'])
         return df
@@ -57,12 +48,12 @@ class NumericalSeriesPreprocessor(BaseSeriesPreprocessor):
         return series.fillna(fillv)
 
     @staticmethod
-    def _minv(series, minv):
-        return series.map(lambda v: max(minv, v), na_action='ignore')
+    def _minv(series, minval):
+        return series.map(lambda v: max(minval, v), na_action='ignore')
 
     @staticmethod
-    def _maxv(series, maxv):
-        return series.map(lambda v: min(maxv, v), na_action='ignore')
+    def _maxv(series, maxval):
+        return series.map(lambda v: min(maxval, v), na_action='ignore')
 
     @staticmethod
     def _normalize(series):

@@ -22,7 +22,7 @@ class TestCategoricalSeriesPreprocessor(TestCase):
         assert_frame_equal(result, expected)
 
     def test_process_fillna(self):
-        pp = CategoricalSeriesPreprocessor(fillna='P')
+        pp = CategoricalSeriesPreprocessor(fillval='P')
         target = Series(['P', 'Q', 'R', numpy.nan])
         result = pp.process(target)
         expected = DataFrame({
@@ -33,7 +33,7 @@ class TestCategoricalSeriesPreprocessor(TestCase):
         assert_frame_equal(result, expected)
 
     def test_process_default(self):
-        pp = CategoricalSeriesPreprocessor(default='P')
+        pp = CategoricalSeriesPreprocessor(defaultval='P')
         target = Series(['P', 'Q', 'R', numpy.nan])
         result = pp.process(target)
         expected = DataFrame({

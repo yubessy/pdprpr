@@ -18,7 +18,7 @@ class TestNumericalSeriesPreprocessor(TestCase):
         assert_frame_equal(result, expected)
 
     def test_process_minmax(self):
-        pp = NumericalSeriesPreprocessor(minv=2.0, maxv=4.0)
+        pp = NumericalSeriesPreprocessor(minval=2.0, maxval=4.0)
         target = Series([1, 2, 3, 4, 5])
         result = pp.process(target)
         expected = DataFrame({'VALUE': array_float([0.0, 0.0, 0.5, 1.0, 1.0])})
@@ -32,14 +32,14 @@ class TestNumericalSeriesPreprocessor(TestCase):
         assert_frame_equal(result, expected)
 
     def test_process_fillna(self):
-        pp = NumericalSeriesPreprocessor(fillna=0)
+        pp = NumericalSeriesPreprocessor(fillval=0)
         target = Series([1, 2, numpy.nan])
         result = pp.process(target)
         expected = DataFrame({'VALUE': array_float([0.5, 1.0, 0.0])})
         assert_frame_equal(result, expected)
 
     def test_process_fillna_method(self):
-        pp = NumericalSeriesPreprocessor(fillna_method='mean')
+        pp = NumericalSeriesPreprocessor(fillmethod='mean')
         target = Series([1, 2, numpy.nan])
         result = pp.process(target)
         expected = DataFrame({'VALUE': array_float([0.0, 1.0, 0.5])})

@@ -20,7 +20,7 @@ class TestBinarySeriesPreprocessor(TestCase):
         assert_frame_equal(result, expected)
 
     def test_process_fillna(self):
-        pp = BinarySeriesPreprocessor(fillna=False)
+        pp = BinarySeriesPreprocessor(fillval=False)
         target = Series([0, 1, numpy.nan])
         result = pp.process(target)
         expected = DataFrame({
