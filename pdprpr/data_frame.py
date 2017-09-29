@@ -50,7 +50,8 @@ class DataFramePreprocessor:
         for column in self._columns:
             name = column.name
             processed = column.processor.process(df[name])
-            renamed = processed.rename(columns=lambda c: f'{name}__{c}')
+            renamed = processed.rename(
+                columns=lambda c: '{}__{}'.format(name, c))
             result = result.join(renamed)
 
         return result
