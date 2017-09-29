@@ -1,12 +1,21 @@
 pdprpr
 ======
 
-**PanDas PRePRocessor**: transform pandas objects (DataFrame / Series) into some form suitable for machine learning input.
+**PanDas PRePRocessor**: transform pandas objects (DataFrame / Series) suitable for machine learning.
+
+
+Installation
+------------
+
+.. code-block:: plaintext
+
+    $ pip install pdprpr
+
 
 Usage
 -----
 
-Assume you have this DataFrame to be preprocessed:
+Assume you have following `DataFrame` to be preprocessed:
 
 .. code-block:: python
 
@@ -22,7 +31,7 @@ Assume you have this DataFrame to be preprocessed:
     # 1  3.0   q  False
     # 2  NaN   r   True
 
-Define preprocessing settings in JSON-like format:
+Define preprocessing settings:
 
 .. code-block:: yaml
 
@@ -36,7 +45,7 @@ Define preprocessing settings in JSON-like format:
     - name: bin
       kind: binary
 
-Then create `DataFramePreprocessor` instance with them:
+Then create ``DataFramePreprocessor`` with them:
 
 .. code-block:: python
 
@@ -49,7 +58,7 @@ Then create `DataFramePreprocessor` instance with them:
 
     processor = DataFramePreprocessor(settings)
 
-Finally use it to preprocess your DataFrame:
+Finally use it to preprocess the `DataFrame`:
 
 .. code-block:: python
 
@@ -58,5 +67,9 @@ Finally use it to preprocess your DataFrame:
   # 0         0.0       1       0       0          0
   # 1         1.0       0       1       0          0
   # 2         NaN       0       0       1          1
+
+
+Documentation
+-------------
 
 For more options please see `tests <./tests/>` untill docs get available...
