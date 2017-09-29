@@ -9,7 +9,6 @@ from ._base import BaseSeriesPreprocessor
 @attrs
 class CategoricalSeriesPreprocessor(BaseSeriesPreprocessor):
     kind = 'categorical'
-    dtype = object
 
     fillna = attrib(default=None)
     default = attrib(default=numpy.nan)

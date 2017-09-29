@@ -8,9 +8,8 @@ from ._base import BaseSeriesPreprocessor
 @attrs
 class BinarySeriesPreprocessor(BaseSeriesPreprocessor):
     kind = 'binary'
-    dtype = bool
 
-    fillna = attrib(default=True, validator=optional(instance_of(dtype)))
+    fillna = attrib(default=True, validator=optional(instance_of(bool)))
 
     def process(self, series):
         series = series.map(bool, na_action='ignore')

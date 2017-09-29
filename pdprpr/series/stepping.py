@@ -8,6 +8,7 @@ from .categorical import CategoricalSeriesPreprocessor
 @attrs
 class SteppingSeriesPreprocessor(CategoricalSeriesPreprocessor):
     kind = 'stepping'
+
     steps = attrib(default=None, validator=instance_of(list))
 
     def get_category(self, value):

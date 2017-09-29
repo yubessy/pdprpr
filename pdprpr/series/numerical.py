@@ -1,4 +1,4 @@
-from numbers import Real
+from numbers import Number
 
 from attr import attrs, attrib
 from attr.validators import instance_of, optional
@@ -9,12 +9,11 @@ from ._base import BaseSeriesPreprocessor
 @attrs
 class NumericalSeriesPreprocessor(BaseSeriesPreprocessor):
     kind = 'numerical'
-    dtype = Real
 
-    fillna = attrib(default=None, validator=optional(instance_of(Real)))
+    fillna = attrib(default=None, validator=optional(instance_of(Number)))
     fillna_method = attrib(default=None)
-    minv = attrib(default=None, validator=optional(instance_of(Real)))
-    maxv = attrib(default=None, validator=optional(instance_of(Real)))
+    minv = attrib(default=None, validator=optional(instance_of(Number)))
+    maxv = attrib(default=None, validator=optional(instance_of(Number)))
     normalize = attrib(default=True, validator=instance_of(bool))
 
     @fillna_method.validator

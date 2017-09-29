@@ -12,6 +12,7 @@ from .categorical import CategoricalSeriesPreprocessor
 @attrs
 class RegexSeriesPreprocessor(CategoricalSeriesPreprocessor):
     kind = 'regex'
+
     groups = attrib(default=None, validator=instance_of(list))
 
     def __attrs_post_init__(self):
