@@ -1,7 +1,7 @@
 pdprpr
 ======
 
-**PanDas PRePRocessor**: transform pandas objects (DataFrame / Series) suitable for machine learning.
+**PanDas PRePRocessor**: Preprocess Pandas Objects for Machine Learning
 
 
 Installation

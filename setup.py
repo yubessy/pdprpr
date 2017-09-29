@@ -1,20 +1,30 @@
 from distutils.core import setup
 
+NAME = 'pdprpr'
+VERSION = '0.7.0'
+LICENSE = 'LICENSE'
+
+DESCRIPTION = 'PanDas PRePRocessor: Preprocess Pandas Objects for Machine Learning'
+with open('README.rst') as f:
+    LONG_DESCRIPTION = f.read()
+URL = 'https://github.com/yubessy/pdprpr'
+
+AUTHOR = 'Shotaro Tanaka'
+AUTHOR_EMAIL = 'yubessy0@gmail.com'
+
+PACKAGES = ['pdprpr', 'pdprpr.series']
+with open('requirements.txt') as f:
+    INSTALL_REQUIRES = [l for l in f.read().split('\n') if l]
+
 setup(
-    name='pdprpr',
-    version='0.6.1',
-    author='Shotaro Tanaka',
-    author_email='yubessy0@gmail.com',
-    packages=['pdprpr', 'pdprpr.series'],
-    url='https://github.com/yubessy/pdprpr',
-    license='LICENSE',
-    description=(
-        'transform pandas objects (DataFrame / Series) into some form'
-        ' suitable for machine learning input.'
-    ),
-    long_description=open('README.rst').read(),
-    install_requires=[
-        "attrs >= 17.1.0",
-        "pandas >= 0.18.1",
-    ],
+    name=NAME,
+    version=VERSION,
+    license=LICENSE,
+    description=DESCRIPTION,
+    long_description=LONG_DESCRIPTION,
+    url=URL,
+    author=AUTHOR,
+    author_email=AUTHOR_EMAIL,
+    packages=PACKAGES,
+    install_requires=INSTALL_REQUIRES,
 )
