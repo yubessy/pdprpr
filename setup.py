@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 NAME = 'pdprpr'
-VERSION = '0.7.0'
+VERSION = '0.7.2'
 LICENSE = 'LICENSE'
 
 DESCRIPTION = 'PanDas PRePRocessor: Preprocess Pandas Objects for Machine Learning'
@@ -13,8 +13,10 @@ AUTHOR = 'Shotaro Tanaka'
 AUTHOR_EMAIL = 'yubessy0@gmail.com'
 
 PACKAGES = ['pdprpr', 'pdprpr.series']
-with open('requirements.txt') as f:
-    INSTALL_REQUIRES = [l for l in f.read().split('\n') if l]
+INSTALL_REQUIRES = [
+    'attrs >= 17.1.0',
+    'pandas >= 0.18.1',
+]
 
 setup(
     name=NAME,
