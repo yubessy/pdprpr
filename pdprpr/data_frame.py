@@ -7,7 +7,7 @@ from .series import (
     NullableSeriesPreprocessor,
     CategoricalSeriesPreprocessor,
     BinarySeriesPreprocessor,
-    SteppingSeriesPreprocessor,
+    ThresholdSeriesPreprocessor,
     RegexSeriesPreprocessor,
 )
 
@@ -18,7 +18,7 @@ _SERIES_PREPROCESSORS = {
         NullableSeriesPreprocessor,
         CategoricalSeriesPreprocessor,
         BinarySeriesPreprocessor,
-        SteppingSeriesPreprocessor,
+        ThresholdSeriesPreprocessor,
         RegexSeriesPreprocessor,
     )
 }

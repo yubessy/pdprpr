@@ -16,8 +16,8 @@ class TestDataFramePreprocessor(TestCase):
             {'name': 'nul', 'kind': 'nullable'},
             {'name': 'bin', 'kind': 'binary'},
             {'name': 'cat', 'kind': 'categorical'},
-            {'name': 'stp', 'kind': 'stepping', 'options': {
-                'steps': [2, 4],
+            {'name': 'stp', 'kind': 'threshold', 'options': {
+                'thresholds': [2, 4],
             }},
             {'name': 'reg', 'kind': 'regex', 'options': {
                 'groups': [{'name': 'a', 'regex': r'a+'}],

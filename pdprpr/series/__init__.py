@@ -2,7 +2,7 @@ from .numerical import NumericalSeriesPreprocessor
 from .nullable import NullableSeriesPreprocessor
 from .categorical import CategoricalSeriesPreprocessor
 from .binary import BinarySeriesPreprocessor
-from .stepping import SteppingSeriesPreprocessor
+from .threshold import ThresholdSeriesPreprocessor
 from .regex import RegexSeriesPreprocessor
 
 __all__ = [
@@ -10,6 +10,6 @@ __all__ = [
     'NullableSeriesPreprocessor',
     'CategoricalSeriesPreprocessor',
     'BinarySeriesPreprocessor',
-    'SteppingSeriesPreprocessor',
+    'ThresholdSeriesPreprocessor',
     'RegexSeriesPreprocessor',
 ]
