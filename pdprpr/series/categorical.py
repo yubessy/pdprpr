@@ -1,8 +1,7 @@
-import math
-
 import numpy
 from attr import attrs, attrib
 from pandas import get_dummies
+from ..utils import is_nan
 
 from ._base import BaseSeriesPreprocessor
 
@@ -21,17 +20,17 @@ class CategoricalSeriesPreprocessor(BaseSeriesPreprocessor):
         if self.fillna is not None:
             series = series.fillna(self.fillna)
 
-        if not (isinstance(self.default, float) and math.isnan(self.default)):
-            series = self._default_to_nan(series)
+        if not is_nan(self.default):
+            series = self._swap_default_nan(series)
 
         dummies = get_dummies(series).astype(numpy.uint8)
         return dummies.rename(columns=self.get_column)
 
-    def _default_to_nan(self, series):
+    def _swap_default_nan(self, series):
         default = self.default
 
         def replacer(x):
-            if isinstance(x, float) and numpy.isnan(x):
+            if is_nan(x):
                 return 'NAN'
             elif default in (None, True, False) and x is default:
                 return float('nan')
