@@ -40,10 +40,8 @@ class CategoricalSeriesPreprocessor(BaseSeriesPreprocessor):
 
         return series.map(replacer)
 
-    @staticmethod
-    def get_category(value):
+    def get_category(self, value):
         return value
 
-    @staticmethod
-    def get_column(category):
+    def get_column(self, category):
         return str(category)

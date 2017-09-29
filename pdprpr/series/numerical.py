@@ -19,22 +19,20 @@ class NumericalSeriesPreprocessor(BaseSeriesPreprocessor):
     normalize = attrib(default=True, validator=instance_of(bool))
 
     def process(self, series):
-        series = series.astype(float)
-        df = series.to_frame('VALUE')
         if self.fillval is not None:
-            df['VALUE'] = df['VALUE'].fillna(self.fillval)
+            series = series.fillna(self.fillval)
         if self.fillmethod is not None:
-            df['VALUE'] = self._fillna_method(df['VALUE'], self.fillmethod)
+            series = self._fill_by_method(series)
         if self.minval is not None:
-            df['VALUE'] = self._minv(df['VALUE'], self.minval)
+            series = self._min(series)
         if self.maxval is not None:
-            df['VALUE'] = self._maxv(df['VALUE'], self.maxval)
+            series = self._max(series)
         if self.normalize:
-            df['VALUE'] = self._normalize(df['VALUE'])
-        return df
+            series = self._normalize(series)
+        return series.to_frame('VALUE')
 
-    @staticmethod
-    def _fillna_method(series, method):
+    def _fill_by_method(self, series):
+        method = self.fillmethod
         if method == 'min':
             fillv = series.min()
         elif method == 'max':
@@ -47,16 +45,13 @@ class NumericalSeriesPreprocessor(BaseSeriesPreprocessor):
             fillv = series.mode()[0]
         return series.fillna(fillv)
 
-    @staticmethod
-    def _minv(series, minval):
-        return series.map(lambda v: max(minval, v), na_action='ignore')
+    def _min(self, series):
+        return series.map(lambda v: max(self.minval, v), na_action='ignore')
 
-    @staticmethod
-    def _maxv(series, maxval):
-        return series.map(lambda v: min(maxval, v), na_action='ignore')
+    def _max(self, series):
+        return series.map(lambda v: min(self.maxval, v), na_action='ignore')
 
-    @staticmethod
-    def _normalize(series):
+    def _normalize(self, series):
         smin = series.min()
         smax = series.max()
         return (series - smin) / (smax - smin)

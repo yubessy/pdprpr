@@ -12,9 +12,7 @@ from .series import (
 )
 
 
-Column = namedtuple('Column', ['name', 'processor'])
-
-_SERIES_PROCESSORS = {
+_SERIES_PREPROCESSORS = {
     processor.kind: processor for processor in (
         NumericalSeriesPreprocessor,
         NullableSeriesPreprocessor,
@@ -26,9 +24,12 @@ _SERIES_PROCESSORS = {
 }
 
 
+Column = namedtuple('Column', ['name', 'processor'])
+
+
 class DataFramePreprocessor:
     def __init__(self, settings):
-        kinds = _SERIES_PROCESSORS.keys()
+        kinds = _SERIES_PREPROCESSORS.keys()
 
         columns = []
         for setting in settings:
@@ -39,7 +40,7 @@ class DataFramePreprocessor:
                 mes = "Unknown kind: '{}'".format(kind)
                 raise ValueError(mes)
 
-            processor = _SERIES_PROCESSORS[kind](**options)
+            processor = _SERIES_PREPROCESSORS[kind](**options)
             columns.append(Column(name=name, processor=processor))
 
         self._columns = columns
