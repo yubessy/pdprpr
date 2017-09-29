@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='pdprpr',
-    version='0.6.0',
+    version='0.6.1',
     author='Shotaro Tanaka',
     author_email='yubessy0@gmail.com',
     packages=['pdprpr', 'pdprpr.series'],
